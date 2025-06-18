@@ -17,30 +17,32 @@ class RolePermissionSeeder extends Seeder
         // Reset cache
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create Permission
-        $permissions = [
-            ['name' => 'profiles index',  'guard_name' => 'web'],
-            ['name' => 'profiles create', 'guard_name' => 'web'],
-            ['name' => 'profiles edit',   'guard_name' => 'web'],
-            ['name' => 'profiles delete', 'guard_name' => 'web'],
+        // // Create Permission
+        // $permissions = [
+        //     ['name' => 'profiles index',  'guard_name' => 'web'],
+        //     ['name' => 'profiles create', 'guard_name' => 'web'],
+        //     ['name' => 'profiles edit',   'guard_name' => 'web'],
+        //     ['name' => 'profiles delete', 'guard_name' => 'web'],
+        // ];
+        // foreach ($permissions as $permission) {
+        //     Permission::firstOrCreate($permission);
+        // }
 
-            ['name' => 'users index',  'guard_name' => 'web'],
-            ['name' => 'users create', 'guard_name' => 'web'],
-            ['name' => 'users edit',   'guard_name' => 'web'],
-            ['name' => 'users delete', 'guard_name' => 'web'],
-
-            ['name' => 'roles index',  'guard_name' => 'web'],
-            ['name' => 'roles create', 'guard_name' => 'web'],
-            ['name' => 'roles edit',   'guard_name' => 'web'],
-            ['name' => 'roles delete', 'guard_name' => 'web'],
-
-            ['name' => 'permissions index',  'guard_name' => 'web'],
-            ['name' => 'permissions create', 'guard_name' => 'web'],
-            ['name' => 'permissions edit',   'guard_name' => 'web'],
-            ['name' => 'permissions delete', 'guard_name' => 'web'],
+        $entities = [
+            'profiles' => 'web',
+            'users' => 'web',
+            'roles' => 'web',
+            'permissions' => 'web',
+            'settings' => 'api'
         ];
-        foreach ($permissions as $permission) {
-            Permission::firstOrCreate($permission);
+        $actions = ['index', 'create', 'edit', 'delete'];
+        foreach ($entities as $entity => $guard) {
+            foreach ($actions as $action) {
+                $permissions[] = [
+                    'name' => "{$entity} {$action}",
+                    'guard_name' => $guard
+                ];
+            }
         }
 
         // Create Role

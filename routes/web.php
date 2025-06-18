@@ -7,6 +7,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -31,4 +32,6 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('/roles/bulk-delete', [RoleController::class, 'bulk_delete'])->name('roles.bulk_delete');
     Route::resource('permissions', PermissionController::class);
     Route::post('/permissions/bulk-delete', [PermissionController::class, 'bulk_delete'])->name('permissions.bulk_delete');
+
+    Route::resource('settings', SettingController::class);
 });

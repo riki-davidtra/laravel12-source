@@ -2,55 +2,17 @@
 
 namespace App\Models;
 
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Setting extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasUuids, HasRoles;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'uuid',
-        'avatar_url',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $guarded = [];
 
     public function getRouteKeyName()
     {
@@ -72,10 +34,10 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::updating(function ($model) {
-            if ($model->isDirty('avatar_url')) {
-                $oriPathOld = $model->getOriginal('avatar_url');
+            if ($model->isDirty('value')) {
+                $oriPathOld = $model->getOriginal('value');
                 $thumbPathOld = 'thumbs/' . $oriPathOld;
-                $oriPathNew = $model->avatar_url;
+                $oriPathNew = $model->value;
                 if ($oriPathOld && $oriPathOld !== $oriPathNew) {
                     if (Storage::disk('public')->exists($oriPathOld)) {
                         Storage::disk('public')->delete($oriPathOld);
@@ -88,8 +50,8 @@ class User extends Authenticatable
         });
 
         static::deleting(function ($model) {
-            if ($model->avatar_url) {
-                $oriPath = $model->avatar_url;
+            if ($model->value) {
+                $oriPath = $model->value;
                 $thumbPath = 'thumbs/' . $oriPath;
                 if (Storage::disk('public')->exists($oriPath)) {
                     Storage::disk('public')->delete($oriPath);
