@@ -16,7 +16,7 @@
                             <x-form.input name="name" label="Name" placeholder="Enter name" value="{{ old('name', $permission->name) }}" />
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-8">
                             <x-form.button label="Save Changes" />
                         </div>
                     </form>

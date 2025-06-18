@@ -52,11 +52,6 @@ class User extends Authenticatable
         ];
     }
 
-    public function getRouteKeyName()
-    {
-        return 'uuid';
-    }
-
     public $incrementing = true;
 
     public function uniqueIds(): array
@@ -67,6 +62,11 @@ class User extends Authenticatable
     public function newUniqueId(): string
     {
         return (string) Uuid::uuid7();
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 
     protected static function booted()

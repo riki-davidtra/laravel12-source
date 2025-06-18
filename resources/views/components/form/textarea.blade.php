@@ -1,9 +1,8 @@
 @props([
     'label' => '',
     'name',
-    'options' => [],
-    'selected' => [],
-    'multiple' => false,
+    'placeholder' => '',
+    'value' => '',
 ])
 
 @php
@@ -17,38 +16,32 @@
     $isNonInteractive = $isReadOnly || $isDisabled;
 
     // Kelas dasar
-    $baseClass = 'shadow-theme-xs h-11 w-full appearance-none rounded-lg px-4 py-2.5 pr-11 text-sm focus:ring-3 focus:outline-hidden';
+    $baseClass = 'shadow-theme-xs w-full rounded-lg px-4 py-2.5 text-sm text-gray-800 dark:text-white/90 focus:ring-3 focus:outline-hidden';
     // Background tergantung kondisi
     $bgClass = $isNonInteractive ? 'bg-gray-100 dark:bg-gray-800' : 'bg-transparent dark:bg-gray-900';
     // Border tergantung error
     $borderClass = $hasError ? 'border border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : 'border border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800';
     // Cursor jika readonly/disabled
     $nonInteractiveClass = $isNonInteractive ? 'cursor-not-allowed text-gray-600 dark:text-gray-400 placeholder:text-gray-600 dark:placeholder:text-white/90' : 'text-gray-800 dark:text-white/90 placeholder:text-gray-400 dark:placeholder:text-white/90';
-    // Gabungkan semua class
+    // Gabungkan semua
     $fieldClass = implode(' ', [$baseClass, $bgClass, $borderClass, $nonInteractiveClass]);
-
-    // Nama field untuk multiple
-    $fieldName = $multiple ? $name . '[]' : $name;
 @endphp
 
-<div class="space-y-1">
-    <label for="{{ $fieldId }}" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-        {{ $label }}
-    </label>
+@if ($label)
+    <div class="space-y-1">
+        <label for="{{ $fieldId }}" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+            {{ $label }}
+        </label>
+@endif
 
-    <div class="relative z-20">
-        <select id="{{ $fieldId }}" name="{{ $fieldName }}" {{ $attributes->merge(['class' => 'select2 ' . $fieldClass]) }} @if ($multiple) multiple @endif>
-            @foreach ($options as $key => $value)
-                <option value="{{ $key }}" @selected(is_array($selected) ? in_array($key, $selected) : $selected == $key)>
-                    {{ $value }}
-                </option>
-            @endforeach
-        </select>
+<textarea id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" {{ $attributes->merge(['class' => $fieldClass]) }}>{!! old($name, $value) !!}</textarea>
+
+@error($name)
+    <span class="text-theme-xs text-error-500">
+        {{ $message }}
+    </span>
+@enderror
+
+@if ($label)
     </div>
-
-    @error($name)
-        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
+@endif

@@ -49,7 +49,7 @@
                             @endif
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-8">
                             <x-form.button label="Save Changes" />
                         </div>
                     </form>

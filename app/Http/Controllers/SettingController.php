@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
     public function index()
     {
-        return view('dashboard.pages.settings.index');
+        $settings = Setting::orderBy('order', 'asc')->get();
+        return view('dashboard.pages.settings.index', compact('settings'));
     }
 
     public function create()

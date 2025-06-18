@@ -21,7 +21,7 @@
                             <x-form.select2 name="roles" label="Roles" :options="$roleOptions" :selected="old('roles')" :multiple="true" />
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-8">
                             <x-form.button label="Save" />
                         </div>
                     </form>

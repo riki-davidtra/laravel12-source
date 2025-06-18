@@ -8,28 +8,38 @@
 ])
 
 @php
+    use Illuminate\Support\Str;
+
     $fieldId = $attributes->get('id') ?? Str::slug($name, '_');
     $hasError = $errors->has($name);
 
-    $baseClass = 'dark:bg-dark-900 shadow-theme-xs h-11 w-full rounded-lg bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30';
-    $defaultBorderClass = 'border border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800';
-    $errorBorderClass = 'border border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800';
-    $fieldClass = $baseClass . ' ' . ($hasError ? $errorBorderClass : $defaultBorderClass);
-    if ($attributes->get('readonly') || $attributes->get('disabled')) {
-        $fieldClass .= ' cursor-not-allowed';
-    }
+    $isReadOnly = $attributes->get('readonly');
+    $isDisabled = $attributes->get('disabled');
+    $isNonInteractive = $isReadOnly || $isDisabled;
 
-    $flatpickrClass = $timestamp ? 'flatpickr-timestamp' : 'flatpickr-date';
+    // Kelas dasar
+    $baseClass = 'shadow-theme-xs h-11 w-full rounded-lg px-4 py-2.5 text-sm text-gray-800 dark:text-white/90 focus:ring-3 focus:outline-hidden';
+    // Background tergantung kondisi
+    $bgClass = $isNonInteractive ? 'bg-gray-100 dark:bg-gray-800' : 'bg-transparent dark:bg-gray-900';
+    // Border tergantung error
+    $borderClass = $hasError ? 'border border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : 'border border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800';
+    // Cursor jika readonly/disabled
+    $nonInteractiveClass = $isNonInteractive ? 'cursor-not-allowed text-gray-600 dark:text-gray-400 placeholder:text-gray-600 dark:placeholder:text-white/90' : 'text-gray-800 dark:text-white/90 placeholder:text-gray-400 dark:placeholder:text-white/90';
+    // Kelas flatpickr hanya jika type = date
+    $flatpickrClass = $type === 'date' ? ($timestamp ? 'flatpickr-timestamp' : 'flatpickr-date') : '';
+    // Gabungkan semua
+    $fieldClass = implode(' ', [$baseClass, $bgClass, $borderClass, $nonInteractiveClass, $flatpickrClass]);
 @endphp
 
-<div class="space-y-1">
-    @if ($label)
+@if ($label)
+    <div class="space-y-1">
         <label for="{{ $fieldId }}" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
             {{ $label }}
         </label>
-    @endif
+@endif
 
-    @if ($type === 'password')
+@switch($type)
+    @case('password')
         <div x-data="{ showPassword: false }" class="relative">
             <input :type="showPassword ? 'text' : 'password'" id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name, $value) }}" {{ $attributes->merge(['class' => $fieldClass]) }} />
             <span @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-400 z-10">
@@ -45,9 +55,11 @@
                 </svg>
             </span>
         </div>
-    @elseif($type === 'date')
+    @break
+
+    @case('date')
         <div class="relative">
-            <input type="date" id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name, $value) }}" onclick="this.showPicker()" {{ $attributes->merge(['class' => $fieldClass . ' pr-11 ' . $flatpickrClass]) }} />
+            <input type="date" id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name, $value) }}" onclick="this.showPicker()" {{ $attributes->merge(['class' => "$fieldClass pr-11"]) }} />
             <span class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 dark:text-gray-400">
                 <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -56,35 +68,22 @@
                 </svg>
             </span>
         </div>
-    @elseif($type === 'file')
-        <input type="file" id="{{ $fieldId }}" name="{{ $name }}" {{ $attributes->merge(['class' => $fieldClass]) }} />
-        {{-- @php
-            $path = $value;
-            $defaultUrl = asset('assets/images/no-image.jpg');
-            $oriUrl = $defaultUrl;
-            $thumbUrl = $defaultUrl;
-            if ($path) {
-                if (Storage::disk('public')->exists($path)) {
-                    $oriUrl = Storage::url($path);
-                }
-                if (Storage::disk('public')->exists('thumbs/' . $path)) {
-                    $thumbUrl = Storage::url('thumbs/' . $path);
-                }
-            }
-        @endphp
-        <div class="space-y-2">
-            <input type="file" id="{{ $fieldId }}" name="{{ $name }}" {{ $attributes->merge(['class' => $fieldClass]) }} />
-            <a href="{{ $oriUrl }}" target="_blank">
-                <img src="{{ $thumbUrl }}" alt="Thumbnail" class="w-24 h-24 object-cover rounded border" />
-            </a>
-        </div> --}}
-    @else
-        <input type="{{ $type }}" id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name, $value) }}" {{ $attributes->merge(['class' => $fieldClass]) }} />
-    @endif
+    @break
 
-    @error($name)
-        <span class="text-theme-xs text-error-500">
-            {{ $message }}
-        </span>
-    @enderror
-</div>
+    @case('file')
+        <input type="file" id="{{ $fieldId }}" name="{{ $name }}" {{ $attributes->merge(['class' => $fieldClass]) }} />
+    @break
+
+    @default
+        <input type="{{ $type }}" id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name, $value) }}" {{ $attributes->merge(['class' => $fieldClass]) }} />
+@endswitch
+
+@error($name)
+    <span class="text-theme-xs text-error-500">
+        {{ $message }}
+    </span>
+@enderror
+
+@if ($label)
+    </div>
+@endif

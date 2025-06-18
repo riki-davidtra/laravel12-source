@@ -18,22 +18,12 @@ class RolePermissionSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // // Create Permission
-        // $permissions = [
-        //     ['name' => 'profiles index',  'guard_name' => 'web'],
-        //     ['name' => 'profiles create', 'guard_name' => 'web'],
-        //     ['name' => 'profiles edit',   'guard_name' => 'web'],
-        //     ['name' => 'profiles delete', 'guard_name' => 'web'],
-        // ];
-        // foreach ($permissions as $permission) {
-        //     Permission::firstOrCreate($permission);
-        // }
-
         $entities = [
             'profiles' => 'web',
             'users' => 'web',
             'roles' => 'web',
             'permissions' => 'web',
-            'settings' => 'api'
+            'settings' => 'web'
         ];
         $actions = ['index', 'create', 'edit', 'delete'];
         foreach ($entities as $entity => $guard) {
@@ -43,6 +33,9 @@ class RolePermissionSeeder extends Seeder
                     'guard_name' => $guard
                 ];
             }
+        }
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate($permission);
         }
 
         // Create Role

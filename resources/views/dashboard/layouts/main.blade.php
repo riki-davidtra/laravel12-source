@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    {!! $settingItems['meta']->value ?? '' !!}
 
-    <title>@stack('title') - File Manager</title>
+    <title>@stack('title', 'Title') - {{ $settingItems['site_name']->value ?? 'Site Name' }}</title>
 
-    <link rel="icon" href="{{ asset('/') }}assets/images/favicon.png" type="image/png" />
+    @if ($settingItems['favicon']->value && Storage::disk('public')->exists($settingItems['favicon']->value))
+        <link rel="shortcut icon" type="image/x-icon" href="{{ Storage::url($settingItems['favicon']->value) }}" rel="shortcut icon">
+    @else
+        <link rel="icon" href="{{ asset('/') }}assets/images/favicon.png" type="image/png" />
+    @endif
+
     <link href="{{ asset('assets/select2/select2.min.css') }}" rel="stylesheet" />
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
