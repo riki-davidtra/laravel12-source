@@ -15,9 +15,15 @@ import map01 from "./components/map-01";
 import "./components/calendar-init.js";
 import "./components/image-resize";
 
-Alpine.plugin(persist);
-window.Alpine = Alpine;
-Alpine.start();
+// Alpine.plugin(persist);
+// window.Alpine = Alpine;
+// Alpine.start();
+
+if (!window.Alpine || window.Alpine.version === undefined) {
+    Alpine.plugin(persist);
+    window.Alpine = Alpine;
+    Alpine.start();
+}
 
 // Init flatpickr
 flatpickr(".datepicker", {
