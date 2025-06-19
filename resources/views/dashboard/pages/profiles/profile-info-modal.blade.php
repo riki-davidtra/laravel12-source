@@ -33,7 +33,7 @@
                             </label>
                             <input type="file" id="avatar_url" name="avatar_url" value=""
                                 class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                            <div class="text-red-400 text-sm message" id="error-name"></div>
+                            <div class="text-red-400 text-sm message" id="error-avatar_url"></div>
                         </div>
 
                         <div class="col-span-2 lg:col-span-1">
@@ -59,7 +59,7 @@
                                 Password
                             </label>
                             <div x-data="{ showPassword: false }" class="relative">
-                                <input :type="showPassword ? 'text' : 'password'" id="password" name="password"
+                                <input :type="showPassword ? 'text' : 'password'" id="password" name="password" autocomplete="new-password"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                                 <span @click="showPassword = !showPassword" class="absolute z-30 text-gray-500 -translate-y-1/2 cursor-pointer right-4 top-1/2 dark:text-gray-400">
                                     <svg x-show="!showPassword" class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
