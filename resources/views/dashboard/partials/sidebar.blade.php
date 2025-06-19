@@ -2,11 +2,20 @@
     <div :class="sidebarToggle ? 'justify-center' : 'justify-between'" class="flex items-center gap-2 pt-8 sidebar-header pb-7">
         <a href="{{ url('dashboard') }}">
             <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
-                <img class="dark:hidden" src="{{ asset('/') }}assets/tailadmin//images/logo/logo.svg" alt="Logo" />
-                <img class="hidden dark:block" src="{{ asset('/') }}assets/tailadmin//images/logo/logo-dark.svg" alt="Logo" />
+                @if ($settingItems['logo']->value && Storage::disk('public')->exists($settingItems['logo']->value))
+                    <img class="dark:hidden h-8" src="{{ Storage::url($settingItems['logo']->value) }}" alt="Logo" />
+                    <img class="hidden dark:block h-8" src="{{ Storage::url($settingItems['logo']->value) }}" alt="Logo" />
+                @else
+                    <img class="dark:hidden h-8" src="{{ asset('/') }}assets/tailadmin//images/logo/logo.svg" alt="Logo" />
+                    <img class="hidden dark:block h-8" src="{{ asset('/') }}assets/tailadmin//images/logo/logo-dark.svg" alt="Logo" />
+                @endif
             </span>
 
-            <img class="logo-icon" :class="sidebarToggle ? 'lg:block' : 'hidden'" src="{{ asset('/') }}assets/tailadmin//images/logo/logo-icon.svg" alt="Logo" />
+            @if ($settingItems['logo']->value && Storage::disk('public')->exists($settingItems['logo']->value))
+                <img class="logo-icon h-8" :class="sidebarToggle ? 'lg:block' : 'hidden'" src="{{ Storage::url($settingItems['logo']->value) }}" alt="Logo" />
+            @else
+                <img class="logo-icon h-8" :class="sidebarToggle ? 'lg:block' : 'hidden'" src="{{ asset('/') }}assets/tailadmin//images/logo/logo-icon.svg" alt="Logo" />
+            @endif
         </a>
     </div>
 

@@ -155,8 +155,7 @@ class UserController extends Controller
             'password'   => 'nullable|string|min:8|confirmed',
             'roles'      => 'nullable|array',
             'roles.*'    => 'exists:roles,name',
-            // 'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'avatar_url' => 'nullable',
+            'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         DB::beginTransaction();

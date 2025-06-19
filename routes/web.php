@@ -33,5 +33,6 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::resource('permissions', PermissionController::class);
     Route::post('/permissions/bulk-delete', [PermissionController::class, 'bulk_delete'])->name('permissions.bulk_delete');
 
-    Route::resource('settings', SettingController::class);
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings/update-all', [SettingController::class, 'update_all'])->name('settings.update_all');
 });

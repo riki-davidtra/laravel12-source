@@ -29,20 +29,18 @@
                             @else
                                 <div class="flex items-center mb-2">
                                     <input type="checkbox" id="select_all" class="cursor-pointer form-checkbox text-indigo-600 rounded">
-                                    <label for="select_all" class="cursor-pointer ml-2 text-sm font-semibold">Select all</label>
+                                    <label for="select_all" class="cursor-pointer ml-2 text-lg font-semibold">Select all</label>
                                 </div>
-
                                 <div class="grid grid-cols-2 gap-2">
                                     @foreach ($permissions as $permission)
                                         <div class="flex items-center">
                                             <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" id="perm_{{ $permission->id }}" class="cursor-pointer form-checkbox text-indigo-600 rounded permission-item" {{ in_array($permission->name, old('permissions', $rolePermissions)) ? 'checked' : '' }}>
-                                            <label for="perm_{{ $permission->id }}" class="cursor-pointer ml-2 text-sm">
+                                            <label for="perm_{{ $permission->id }}" class="cursor-pointer ml-2 text-lg">
                                                 {{ $permission->name }}
                                             </label>
                                         </div>
                                     @endforeach
                                 </div>
-
                                 @error('permissions')
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                 @enderror

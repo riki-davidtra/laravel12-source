@@ -41,7 +41,7 @@
 @switch($type)
     @case('password')
         <div x-data="{ showPassword: false }" class="relative">
-            <input :type="showPassword ? 'text' : 'password'" id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name, $value) }}" {{ $attributes->merge(['class' => $fieldClass]) }} />
+            <input :type="showPassword ? 'text' : 'password'" id="{{ $fieldId }}" name="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ old($name, $value) }}" {{ $attributes->merge(['class' => $fieldClass]) }} autocomplete="new-password" />
             <span @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-400 z-10">
                 <svg x-show="!showPassword" class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"

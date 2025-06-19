@@ -15,7 +15,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('can:profiles index')->only('index');
-        $this->middleware('can:profiles edit')->only(['edit', 'update']);
+        $this->middleware('can:profiles edit')->only(['update']);
     }
 
     public function index()

@@ -29,6 +29,14 @@ class SettingSeeder extends Seeder
             ],
             [
                 'setting_id' => $settings['siteConfig']->uuid,
+                'name'       => 'Description',
+                'key'        => 'description',
+                'type'       => 'textarea',
+                'value'      => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, voluptas. Animi ratione ad odio molestias!',
+
+            ],
+            [
+                'setting_id' => $settings['siteConfig']->uuid,
                 'name'       => 'Website URL',
                 'key'        => 'website_url',
                 'type'       => 'url',

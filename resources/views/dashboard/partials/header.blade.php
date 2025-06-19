@@ -26,8 +26,13 @@
             <!-- Hamburger Toggle BTN -->
 
             <a href="{{ url('dashboard') }}" class="lg:hidden">
-                <img class="dark:hidden" src="{{ asset('/') }}assets/tailadmin/images/logo/logo.svg" alt="Logo" />
-                <img class="hidden dark:block" src="{{ asset('/') }}assets/tailadmin/images/logo/logo-dark.svg" alt="Logo" />
+                @if ($settingItems['logo']->value && Storage::disk('public')->exists($settingItems['logo']->value))
+                    <img class="dark:hidden h-8" src="{{ Storage::url($settingItems['logo']->value) }}" alt="Logo" />
+                    <img class="hidden dark:block h-8" src="{{ Storage::url($settingItems['logo']->value) }}" alt="Logo" />
+                @else
+                    <img class="dark:hidden h-8" src="{{ asset('/') }}assets/tailadmin/images/logo/logo.svg" alt="Logo" />
+                    <img class="hidden dark:block h-8" src="{{ asset('/') }}assets/tailadmin/images/logo/logo-dark.svg" alt="Logo" />
+                @endif
             </a>
 
             <!-- Application nav menu button -->

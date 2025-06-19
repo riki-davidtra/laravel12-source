@@ -27,7 +27,9 @@
                                             }
                                         }
                                     @endphp
-                                    <img src="{{ $thumbUrl }}" alt="user" class="w-full h-full object-cover" />
+                                    <a href="{{ $thumbUrl }}" target="_blank">
+                                        <img src="{{ $thumbUrl }}" alt="user" class="w-full h-full object-cover" />
+                                    </a>
                                 </div>
                                 <div class="order-3 xl:order-2">
                                     <h4 class="mb-2 text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left">

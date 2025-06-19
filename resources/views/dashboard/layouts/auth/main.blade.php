@@ -36,10 +36,14 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 
                     <div class="flex flex-col items-center max-w-xs">
                         <a href="{{ url('/') }}" class="block mb-4">
-                            <img src="{{ asset('/') }}assets/tailadmin/images/logo/auth-logo.svg" alt="Logo" />
+                            @if ($settingItems['logo']->value && Storage::disk('public')->exists($settingItems['logo']->value))
+                                <img src="{{ Storage::url($settingItems['logo']->value) }}" alt="Logo" class="h-12" />
+                            @else
+                                <img src="{{ asset('/') }}assets/tailadmin/images/logo/auth-logo.svg" alt="Logo" />
+                            @endif
                         </a>
                         <p class="text-center text-gray-400 dark:text-white/60">
-                            {{ __('File Manager modern untuk mengelola, berbagi, dan mengatur file Anda dengan mudah, cepat, dan aman.') }}
+                            {!! __($settingItems['description']->value ?? '') !!}
                         </p>
                     </div>
                 </div>
