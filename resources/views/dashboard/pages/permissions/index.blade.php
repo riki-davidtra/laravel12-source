@@ -14,7 +14,7 @@
                     @can('permissions create')
                         <x-table.buttons.add :url="route('permissions.create')" />
                     @endcan
-                    <x-table.buttons.columns :columns="[['index' => 5, 'label' => 'Created At'], ['index' => 6, 'label' => 'Updated At']]" />
+                    <x-table.buttons.columns :columns="[['index' => 4, 'label' => 'Created At'], ['index' => 5, 'label' => 'Updated At']]" />
                 </div>
                 <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                     <div class="overflow-x-auto">
