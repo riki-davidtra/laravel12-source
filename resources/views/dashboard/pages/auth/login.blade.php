@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.auth.main')
+@extends('dashboard.layouts.auth')
 @push('title', 'Login')
 
 @section('content')

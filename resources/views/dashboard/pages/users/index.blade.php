@@ -18,7 +18,7 @@
                 </div>
                 <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                     <div class="overflow-x-auto">
-                        <x-table.datatable :columns="[['text' => view('components.table.checkbox', ['isAll' => true])->render(), 'class' => 'w-0 text-center'], ['text' => 'No.', 'class' => 'w-0'], ['text' => 'Avatar'], ['text' => 'Name'], ['text' => 'Email'], ['text' => 'Roles'], ['text' => 'Created At'], ['text' => 'Updated At'], ['text' => 'Actions', 'class' => 'text-center w-0']]" />
+                        <x-table.datatable :columns="[['text' => view('components.table.checkbox', ['isAll' => true])->render(), 'class' => 'w-0 text-center'], ['text' => 'No.', 'class' => 'w-0'], ['text' => 'Avatar'], ['text' => 'Name'], ['text' => 'Username'], ['text' => 'Email'], ['text' => 'Roles'], ['text' => 'Created At'], ['text' => 'Updated At'], ['text' => 'Actions', 'class' => 'text-center w-0']]" />
                     </div>
                 </div>
             </div>
@@ -57,6 +57,10 @@
                 }, {
                     data: 'name',
                     name: 'name',
+                    class: 'whitespace-nowrap'
+                }, {
+                    data: 'username',
+                    name: 'username',
                     class: 'whitespace-nowrap'
                 }, {
                     data: 'email',

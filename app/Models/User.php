@@ -71,6 +71,12 @@ class User extends Authenticatable
 
     protected static function booted()
     {
+        static::creating(function ($model) {
+            if (empty($model->username) && !empty($model->email)) {
+                $model->username = strstr($model->email, '@', true);
+            }
+        });
+
         static::updating(function ($model) {
             if ($model->isDirty('avatar_url')) {
                 $oriPathOld = $model->getOriginal('avatar_url');

@@ -15,6 +15,7 @@
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 spcace-y-4">
                             <x-form.input name="name" label="Name" placeholder="Enter name" value="{{ old('name') }}" />
+                            <x-form.input name="username" label="Username" placeholder="Enter username" value="{{ old('username') }}" />
                             <x-form.input type="email" name="email" label="Email" placeholder="Enter email" value="{{ old('email') }}" />
                             <x-form.input type="password" name="password" label="Password" placeholder="Enter password" />
                             <x-form.input type="password" name="password_confirmation" label="Password Confirmation" placeholder="Enter password confirmation" />

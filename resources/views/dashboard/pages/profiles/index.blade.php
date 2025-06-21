@@ -78,6 +78,15 @@
 
                                     <div>
                                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                                            Username
+                                        </p>
+                                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                                            {{ auth()->user()->username }}
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                                             Email
                                         </p>
                                         <p class="text-sm font-medium text-gray-800 dark:text-white/90">

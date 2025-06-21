@@ -17,19 +17,22 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'name'  => 'Superadmin',
-                'email' => 'superadmin@email.com',
-                'role'  => 'super admin'
+                'name'     => 'Superadmin',
+                'email'    => 'superadmin@email.com',
+                'username' => 'superadmin',
+                'role'     => 'super admin'
             ],
             [
-                'name'  => 'Admin',
-                'email' => 'admin@email.com',
-                'role'  => 'admin'
+                'name'     => 'Admin',
+                'email'    => 'admin@email.com',
+                'username' => 'admin',
+                'role'     => 'admin'
             ],
             [
-                'name'  => 'User',
-                'email' => 'user@email.com',
-                'role'  => 'user'
+                'name'     => 'User',
+                'email'    => 'user@email.com',
+                'username' => 'user',
+                'role'     => 'user'
             ],
         ];
 
@@ -39,6 +42,7 @@ class UserSeeder extends Seeder
                 [
                     'name'     => $item['name'],
                     'email'    => $item['email'],
+                    'username' => $item['username'],
                     'password' => bcrypt('password'),
                 ]
             );

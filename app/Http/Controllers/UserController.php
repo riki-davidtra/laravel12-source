@@ -42,7 +42,7 @@ class UserController extends Controller
                 })
                 ->addColumn('avatar_url', function ($user) {
                     return view('components.table.thumbnail', [
-                        'path' => $user->avatar_url,
+                        'path'       => $user->avatar_url,
                         'attributes' => new ComponentAttributeBag(['class' => 'rounded-full'])
                     ])->render();
                 })
@@ -74,6 +74,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name'       => 'required|string|max:255',
+            'username'   => 'required|string|max:255|unique:users',
             'email'      => 'required|string|email|max:255|unique:users',
             'password'   => 'required|string|min:8|confirmed',
             'roles'      => 'nullable|array',
@@ -103,6 +104,7 @@ class UserController extends Controller
 
             $user = User::create([
                 'name'       => $request->name,
+                'username'   => $request->username,
                 'email'      => $request->email,
                 'password'   => Hash::make($request->password),
                 'avatar_url' => $newAvatarPath,
@@ -151,6 +153,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name'       => 'required|string|max:255',
+            'username'   => 'required|string|max:255|unique:users,username,' . $user->id,
             'email'      => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password'   => 'nullable|string|min:8|confirmed',
             'roles'      => 'nullable|array',
@@ -181,8 +184,9 @@ class UserController extends Controller
                 $user->avatar_url = $newAvatarPath;
             }
 
-            $user->name  = $validated['name'];
-            $user->email = $validated['email'];
+            $user->name     = $validated['name'];
+            $user->username = $validated['username'];
+            $user->email    = $validated['email'];
 
             if (!empty($validated['password'])) {
                 $user->password = Hash::make($validated['password']);

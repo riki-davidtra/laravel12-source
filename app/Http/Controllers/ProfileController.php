@@ -27,6 +27,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name'       => 'required|string|max:255',
+            'username'   => 'required|max:255|unique:users,username,' . $profile->id,
             'email'      => 'required|email|max:255|unique:users,email,' . $profile->id,
             'password'   => 'nullable|string|min:8|confirmed',
             'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -54,8 +55,9 @@ class ProfileController extends Controller
                 $profile->avatar_url = $newAvatarPath;
             }
 
-            $profile->name  = $request->input('name');
-            $profile->email = $request->input('email');
+            $profile->name     = $request->input('name');
+            $profile->username = $request->input('username');
+            $profile->email    = $request->input('email');
 
             if ($request->filled('password')) {
                 $profile->password = bcrypt($request->input('password'));
