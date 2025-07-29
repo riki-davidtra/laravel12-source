@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \App\Models\User::observe(\App\Observers\UserObserver::class);
+        \App\Models\Setting::observe(\App\Observers\SettingObserver::class);
+        \App\Models\SettingItem::observe(\App\Observers\SettingItemObserver::class);
     }
 }

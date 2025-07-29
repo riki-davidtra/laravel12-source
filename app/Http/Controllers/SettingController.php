@@ -57,7 +57,7 @@ class SettingController extends Controller
 
                 if ($request->has($key) || ($item->type === 'file' && $request->hasFile($key))) {
                     if ($item->type === 'file') {
-                        $path = $request->file($key)->store('settings', 'public');
+                        $path = $request->file($key)->store('setting-items', 'public');
                         $item->value = $path;
                     } else {
                         $value = $request->input($key);
