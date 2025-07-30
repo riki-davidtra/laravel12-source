@@ -12,6 +12,8 @@ class Setting extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $primaryKey = 'uuid';
+
     protected $guarded = [];
 
     public $incrementing = true;
@@ -26,13 +28,8 @@ class Setting extends Model
         return (string) Uuid::uuid7();
     }
 
-    public function getRouteKeyName()
-    {
-        return 'uuid';
-    }
-
     public function settingItems()
     {
-        return $this->hasMany(SettingItem::class, 'setting_id', 'uuid');
+        return $this->hasMany(SettingItem::class);
     }
 }

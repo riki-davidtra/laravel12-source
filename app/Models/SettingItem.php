@@ -12,6 +12,8 @@ class SettingItem extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $primaryKey = 'uuid';
+
     protected $guarded = [];
 
     public $incrementing = true;
@@ -26,14 +28,9 @@ class SettingItem extends Model
         return (string) Uuid::uuid7();
     }
 
-    public function getRouteKeyName()
-    {
-        return 'uuid';
-    }
-
     public function setting()
     {
-        return $this->belongsTo(Setting::class, 'setting_id', 'uuid');
+        return $this->belongsTo(Setting::class);
     }
 
     protected static function isPathFile($path): bool
