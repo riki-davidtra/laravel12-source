@@ -14,7 +14,13 @@ class SettingItem extends Model
 
     protected $primaryKey = 'uuid';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'setting_uuid',
+        'name',
+        'key',
+        'type',
+        'value',
+    ];
 
     public $incrementing = true;
 

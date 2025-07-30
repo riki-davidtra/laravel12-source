@@ -14,7 +14,10 @@ class Setting extends Model
 
     protected $primaryKey = 'uuid';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'order',
+    ];
 
     public $incrementing = true;
 
