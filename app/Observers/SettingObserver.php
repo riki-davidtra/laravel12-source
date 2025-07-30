@@ -15,8 +15,6 @@ class SettingObserver
 
     public function deleting(Setting $setting): void
     {
-        if ($setting) {
-            $setting->settingItems()->delete();
-        }
+        $setting->settingItems()->delete();
     }
 }
