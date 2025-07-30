@@ -16,37 +16,21 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            [
-                'name'     => 'Superadmin',
-                'email'    => 'superadmin@email.com',
-                'username' => 'superadmin',
-                'role'     => 'super admin'
-            ],
-            [
-                'name'     => 'Admin',
-                'email'    => 'admin@email.com',
-                'username' => 'admin',
-                'role'     => 'admin'
-            ],
-            [
-                'name'     => 'User',
-                'email'    => 'user@email.com',
-                'username' => 'user',
-                'role'     => 'user'
-            ],
+            ['username' => 'superadmin', 'name' => 'Superadmin'],
+            ['username' => 'admin', 'name' => 'Admin'],
+            ['username' => 'user', 'name' => 'User'],
         ];
 
         foreach ($data as $item) {
-            $user = User::updateOrCreate(
-                ['email' => $item['email']],
+            User::updateOrCreate(
+                ['username' => $item['username']],
                 [
                     'name'     => $item['name'],
-                    'email'    => $item['email'],
                     'username' => $item['username'],
+                    'email'    => $item['username'] . '@email.com',
                     'password' => bcrypt('password'),
                 ]
             );
-            $user->assignRole($item['role']);
         }
     }
 }
