@@ -21,14 +21,14 @@ class SettingSeeder extends Seeder
 
         $settingItems = [
             [
-                'setting_uuid' => $settings['siteConfig']->uuid,
+                'setting_id' => $settings['siteConfig']->id,
                 'name'       => 'Site Name',
                 'key'        => 'site_name',
                 'type'       => 'text',
                 'value'      => 'SITE NAME',
             ],
             [
-                'setting_uuid' => $settings['siteConfig']->uuid,
+                'setting_id' => $settings['siteConfig']->id,
                 'name'       => 'Description',
                 'key'        => 'description',
                 'type'       => 'textarea',
@@ -36,28 +36,28 @@ class SettingSeeder extends Seeder
 
             ],
             [
-                'setting_uuid' => $settings['siteConfig']->uuid,
+                'setting_id' => $settings['siteConfig']->id,
                 'name'       => 'Website URL',
                 'key'        => 'website_url',
                 'type'       => 'url',
                 'value'      => 'http://127.0.0.1:8000/',
             ],
             [
-                'setting_uuid' => $settings['siteConfig']->uuid,
+                'setting_id' => $settings['siteConfig']->id,
                 'name'       => 'Logo',
                 'key'        => 'logo',
                 'type'       => 'file',
                 'value'      => null,
             ],
             [
-                'setting_uuid' => $settings['siteConfig']->uuid,
+                'setting_id' => $settings['siteConfig']->id,
                 'name'       => 'Favicon',
                 'key'        => 'favicon',
                 'type'       => 'file',
                 'value'      => null,
             ],
             [
-                'setting_uuid' => $settings['siteConfig']->uuid,
+                'setting_id' => $settings['siteConfig']->id,
                 'name'       => 'Meta',
                 'key'        => 'meta',
                 'type'       => 'textarea',
@@ -70,21 +70,21 @@ class SettingSeeder extends Seeder
 
             ],
             [
-                'setting_uuid' => $settings['contact']->uuid,
+                'setting_id' => $settings['contact']->id,
                 'name'       => 'Address',
                 'key'        => 'address',
                 'type'       => 'text',
                 'value'      => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, voluptas!',
             ],
             [
-                'setting_uuid' => $settings['contact']->uuid,
+                'setting_id' => $settings['contact']->id,
                 'name'       => 'Email',
                 'key'        => 'email',
                 'type'       => 'email',
                 'value'      => 'example@email.com',
             ],
             [
-                'setting_uuid' => $settings['contact']->uuid,
+                'setting_id' => $settings['contact']->id,
                 'name'       => 'Phone Number',
                 'key'        => 'phone_number',
                 'type'       => 'number',
@@ -93,7 +93,7 @@ class SettingSeeder extends Seeder
         ];
         foreach ($settingItems as $settingItem) {
             SettingItem::updateOrCreate([
-                'setting_uuid' => $settingItem['setting_uuid'],
+                'setting_id' => $settingItem['setting_id'],
                 'key'        => $settingItem['key'],
             ], $settingItem);
         }
