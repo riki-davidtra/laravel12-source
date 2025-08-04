@@ -13,14 +13,13 @@ class SettingItem extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'uuid',
         'setting_id',
         'name',
         'key',
         'type',
         'value',
     ];
-
-    public $incrementing = true;
 
     public function uniqueIds(): array
     {

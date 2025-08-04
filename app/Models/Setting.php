@@ -13,11 +13,10 @@ class Setting extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'uuid',
         'name',
         'order',
     ];
-
-    public $incrementing = true;
 
     public function uniqueIds(): array
     {
